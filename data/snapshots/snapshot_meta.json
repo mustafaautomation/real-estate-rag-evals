@@ -1,0 +1,9 @@
+{
+  "embedder": "hashed_tfidf",
+  "judge_scores": null,
+  "judge_scores_note": "No OPENAI_API_KEY was available when this snapshot was written. These rows are outputs of the deterministic extractive provider. They are not LLM-judge scores. Do not treat any field as a RAGAS faithfulness, relevancy, context precision, or context recall score.",
+  "label": "pipeline_outputs_only_judge_scores_not_recorded",
+  "provider": "extractive",
+  "ragas_version": "0.4.3",
+  "rows": 49
+}
