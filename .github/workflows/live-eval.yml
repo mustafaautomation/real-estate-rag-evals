@@ -1,0 +1,35 @@
+name: Live eval
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Check for OPENAI_API_KEY
+        id: key
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "OPENAI_API_KEY secret is not set. Live eval was not run."
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install
+        if: steps.key.outputs.present == 'true'
+        run: uv sync --frozen --all-groups
+      - name: Run live RAGAS metrics
+        if: steps.key.outputs.present == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: uv run harbor-eval --mode live

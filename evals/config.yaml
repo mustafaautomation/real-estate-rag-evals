@@ -1,0 +1,19 @@
+retrieval_k: 4
+chunk_max_chars: 2000
+chunk_overlap: 200
+embedding_dim: 384
+live_model: gpt-4o-mini
+live_embedding_model: text-embedding-3-small
+thresholds:
+  offline:
+    hit_rate: 0.95
+    mrr: 0.90
+    non_llm_context_recall: 0.95
+    string_presence: 0.95
+    refusal_correctness: 0.95
+    grounded_amounts: 1.0
+  live:
+    faithfulness: 0.70
+    answer_relevancy: 0.70
+    context_precision: 0.70
+    context_recall: 0.70
